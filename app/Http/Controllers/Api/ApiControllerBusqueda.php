@@ -27,4 +27,6 @@ class ApiControllerBusqueda extends Controller
     {
         return json_encode($this->codigoPenal->all());
     }
+
+
 }

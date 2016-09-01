@@ -19,6 +19,15 @@ class HechoController extends Api
         return [];
     }
 
-    
+
+    function getValidRelations()
+    {
+        // TODO: Implement getValidRelations() method.
+    }
+
+    public function getFields()
+    {
+        return $this->model->getFillable();
+    }
 }
 

@@ -1,11 +1,11 @@
 <?php namespace App\Http\Controllers\Api\Mysql;
 
-use App\Api\Entities\Mysql\Hechos as Model;
-use App\Api\Transformers\HechosTransformer as Transformer;
+use App\Api\Entities\Mysql\Personas as Model;
+use App\Api\Transformers\PersonasTransformer as Transformer;
 use JuaGuz\ApiGenerator\Api;
 
 
-class HechosController extends Api
+class PersonasController extends Api
 {
     protected $model;
     protected $tranformer;
@@ -19,6 +19,15 @@ class HechosController extends Api
         return [];
     }
 
-    
+
+    function getValidRelations()
+    {
+        // TODO: Implement getValidRelations() method.
+    }
+
+    public function getFields()
+    {
+        return $this->model->getFillable();
+    }
 }
 

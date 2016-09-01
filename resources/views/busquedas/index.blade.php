@@ -2,11 +2,14 @@
 
 @section('scripts')
 
+    @include("busquedas.functions_scripts")
+
+
     <script>
 
         $().ready(function(){
 
-            var url = "{{route('busquedas.getData')}}";
+            /*var url = "@{{route('busquedas.getData')}}";
 
             $.ajax({
                 type: "GET",
@@ -14,7 +17,21 @@
                 success: function (data) {
                     console.log(data);
                 }
+            });*/
+
+            $("select[name='busco']").change(function()
+            {
+                if($("select[name='busco']").val() == "hechos")
+                    obtenerCamposHechos("");
+                else if($("select[name='busco']").val() == "personas")
+                    obtenerCamposPersonas("");
+                else
+                    limpiar();
             });
+
+
+
+
         });
 
 
