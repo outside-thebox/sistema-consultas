@@ -27,3 +27,4 @@ Route::group(['middleware' => 'auth'], function () {
 
 
 
+Route::resource('hecho','Api\Mysql\HechoController'); 
