@@ -43,5 +43,22 @@
         });
     }
 
+    function buscar(url,parametros)
+    {
+//        var relations = "relaciones[]=provincia&relaciones[]=frmRec&relaciones[]=frmInscripcion&relaciones[]=tipoEntidad&relaciones[]=estado&relaciones[]=partido&relaciones[]=tipoReconocimiento&relaciones[]=banco&relaciones[]=federacion&relaciones[]=frmInscripcion&relaciones[]=estadoPredio&orderBy[nombre]=asc&&orderBy[id_provincia]=asc";
+        var queryString = url + "&" + parametros; // + "&" + relations;
+
+        queryString +=  "&methodFilter=filterWithPaginate";
+        console.log(queryString);
+        traerResultados(queryString);
+
+
+    }
+
+    function mostrarDatos(data)
+    {
+        console.log(data);
+    }
+
 
 </script>
