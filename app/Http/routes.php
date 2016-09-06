@@ -23,19 +23,21 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get("busquedas/getData",["as" => "busquedas.getData","uses" => "Api\ApiControllerBusqueda@getData"]);
     Route::resource('busquedas', 'ControllerBusqueda');
 
-    Route::group(['prefix' => 'api'], function () {
-        Route::group(['prefix' => 'v1'], function () {
-            Route::get('api/v1/hecho/getFields',['as' => 'api.v1.hecho.getFields','uses' => 'Api\Mysql\HechoController@getFields']);
-            Route::resource('hecho','Api\Mysql\HechoController');
-
-            Route::get('api/v1/personas/getFields',['as' => 'api.v1.personas.getFields','uses' => 'Api\Mysql\PersonasController@getFields']);
-            Route::resource('personas','Api\Mysql\PersonasController');
-        });
-    });
 
 
 });
 
+Route::group(['prefix' => 'api'], function () {
+    Route::group(['prefix' => 'v1'], function () {
+        Route::get('api/v1/hecho/getFields',['as' => 'api.v1.hecho.getFields','uses' => 'Api\Mysql\HechoController@getFields']);
+        Route::resource('hecho','Api\Mysql\HechoController');
+
+        Route::get('api/v1/personas/getFields',['as' => 'api.v1.personas.getFields','uses' => 'Api\Mysql\PersonasController@getFields']);
+        Route::resource('personas','Api\Mysql\PersonasController');
+        Route::resource('delito','Api\Mysql\DelitoController');
+        Route::resource('codpenal','Api\Mysql\CodpenalController');
+    });
+});
 
 
 

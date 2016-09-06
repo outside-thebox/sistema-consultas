@@ -20,5 +20,84 @@ class Hecho extends Model implements ApiModelInterface{
     	return [];
     }
 
+    public function delito()
+    {
+        return $this->hasOne('App\Api\Entities\Mysql\Delito', 'HE_ADEPSUM', 'HE_ADEPSUM');
+    }
+
+    public function getFillable()
+    {
+        $array = [
+            'HE_ADEPSUM' => 'Adep sum',
+            'HE_DEPEN' => 'Dependencia',
+            'HE_NUMSUM' => 'Num sum',
+            'HE_FECHINI' => 'Fecha de inicio',
+            'HE_FECHFIN' => 'Fecha de fin',
+            'HE_HORAINI' => 'Hora de inicio',
+            'HE_HORAFIN' => 'Hora de fin',
+            'HE_DILIJUD' => 'Dilijud',
+            'HE_ACTANT' => 'Act ant',
+            'HE_ACTORIG' => 'Acto rig',
+            'HE_ACTGIR' => 'Act gir',
+            'HE_MODALI' => 'Modalidad',
+            'HE_PROV' => 'Provincia',
+            'HE_LOCALI' => 'Localidad',
+            'HE_LUGHECH' => 'Lugar del hecho',
+            'HE_MEDIOEM' => 'Medio em',
+            'HE_GIS' => 'Gis',
+            'HE_DICE1' => 'Dice 1',
+            'HE_DICE2' => 'Dice 2',
+            'HE_DICE3' => 'Dice 3',
+            'HE_DICE4' => 'Dice 4',
+            'HE_TIPOHEC' => 'Tipo de hecho',
+            'HE_COLISIO' => 'Colisio',
+            'HE_UBICACI' => 'Ubicacion',
+            'HE_LUGVIA' => 'Lugar via',
+            'HE_ESTVIA' => 'Est via',
+            'HE_ESTCLIM' => 'Est clim',
+            'HE_CALLE' => 'Calle',
+            'HE_CALLENU' => 'Calle nu',
+            'HE_INTERSE' => 'Interseccion',
+            'HE_CIRC' => 'Circ',
+            'HE_SUPER' => 'Super',
+            'HE_USER' => 'Usuario',
+            'HE_MES' => 'Mes',
+            'HE_DIA' => 'Dia',
+            'HE_FRAHOR' => 'Fra hor',
+            'HE_HORA' => 'Hora',
+            'HE_ANO' => 'Año',
+            'HE_ACCIDEN' => 'Accidente',
+            'HE_MODALI2' => 'Modalidad 2',
+            'HE_FECHCAR' => 'Fecha car',
+            'HE_HORACAR' => 'Hora car',
+            'HE_JUEZ' => 'Juez',
+            'HE_SECRE' => 'Secre',
+            'HE_ESCLA' => 'Escla',
+            'HE_ERROSE' => 'Errose',
+            'HE_IDLUGHE' => 'Idlughe',
+            'HE_IDMEDIO' => 'Idmedio',
+            'HE_IDMODA1' => 'Idmoda1',
+            'HE_IDMODA2' => 'Idmoda2',
+            'HE_DEPTO' => 'Depto',
+            'HE_AUX1' => 'Aux1',
+            'HE_AUX2' => 'Aux2',
+            'HE_AUX3' => 'Aux3',
+            'HE_FECHDEN' => 'Fech den',
+            'HE_MOTIVO' => 'Motivo',
+            'HE_CARATU' => 'Caratula',
+            'HE_FISCALI' => 'Fiscalia',
+            'HE_EXPTE' => 'Expediente',
+            'HE_SUMORIG' => 'Sumorig',
+            'HE_OTRAFUE' => 'Otrafue',
+            'HE_SEGPRIV' => 'Segpriv',
+            'HE_MODESCA' => 'Modesca',
+            'HE_PRIVADA' => 'Privada',
+            'HE_ALARMA' => 'Alarma',
+            'HE_CAMARA' => 'Camara',
+            'HE_DESFUER' => 'Desfuer'];
+        return $array;
+    }
+
+
 
 }

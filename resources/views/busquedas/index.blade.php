@@ -44,8 +44,16 @@
 
             $('#btnBuscar').on('click', function(e) {
                 e.preventDefault();
+
+                var relaciones = "&"; // initialize empty array
+                $(".columnas_a_traer:checked").each(function(){
+                    relaciones += "relaciones[]="+$(this).val();
+                });
+
+
+
                 var url = "";
-                var parametros = $("#parametros").val();
+                var parametros = $("#parametros").val() + relaciones;
                 if($("select[name='busco']").val() == "hechos")
                     url = "{{route('api.v1.hecho.index')}}" + "?" + "page=1";
                 else if($("select[name='busco']").val() == "personas")
@@ -53,6 +61,7 @@
 
                 buscar(url,parametros);
             });
+
 
         });
     </script>
@@ -83,9 +92,18 @@
                 <button type="button" class="btn btn-info btn-sm" id="btnBuscar" style="margin-top: 25px">Buscar</button>
             </div>
         </div>
-        <strong>Criterios utilizados</strong>
-        <div class="row" id="criterios_utilizados">
-
+        <div class="form-group col-md-6">
+            <strong>Criterios utilizados</strong>
+            <div class="row" id="criterios_utilizados">
+        </div>
+        </div>
+        <div class="form-group col-md-6">
+            <div class="form-group col-md-12">
+                <strong>Columnas de resultados</strong>
+            </div>
+            <div class="form-group col-md-6">
+                {{ Form::checkbox('delito', 'delito',null,['class' => 'columnas_a_traer']) }} Delitos
+            </div>
         </div>
 
         {{ Form::hidden('parametros',null,['id' => 'parametros']) }}

@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers\Api\Mysql;
 
 use App\Api\Entities\Mysql\Hecho as Model;
+use App\Api\Repositories\RepoHecho;
 use App\Api\Transformers\HechoTransformer as Transformer;
 use JuaGuz\ApiGenerator\Api;
 
@@ -9,8 +10,11 @@ class HechoController extends Api
 {
     protected $model;
     protected $tranformer;
-    public function __construct(Model $model,Transformer $transformer)
+    protected $repository;
+
+    public function __construct(Model $model,Transformer $transformer,RepoHecho $repository)
     {
+        $this->repository = $repository;
         parent::__construct($model,$transformer);
         
     }
@@ -22,7 +26,7 @@ class HechoController extends Api
 
     function getValidRelations()
     {
-        // TODO: Implement getValidRelations() method.
+        return $this->repository->getRelacionesValidas();
     }
 
     public function getFields()

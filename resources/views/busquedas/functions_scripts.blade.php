@@ -24,7 +24,7 @@
         var url = "{{route('api.v1.hecho.getFields')}}";
         $.getJSON(url,function(data){
             $.each(data, function(id,nombre_campo){
-                $("select[name='donde']").append("<option value=\""+ nombre_campo+"\">"+ nombre_campo +"</option>");
+                $("select[name='donde']").append("<option value=\""+ id+"\">"+ nombre_campo +"</option>");
             });
         });
     }
@@ -49,7 +49,7 @@
         var queryString = url + "&" + parametros; // + "&" + relations;
 
         queryString +=  "&methodFilter=filterWithPaginate";
-        console.log(queryString);
+//        console.log(queryString);
         traerResultados(queryString);
 
 
