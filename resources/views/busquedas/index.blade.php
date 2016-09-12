@@ -8,7 +8,7 @@
         h2 {font-size:36px;margin:0 0 10px 0}
         p {margin:0 0 10px 0}
 
-        table.width200,table.rwd_auto {border:1px solid #ccc;width:100%;margin:0 0 50px 0;}
+        table.width200,table.rwd_auto {border:1px solid #ccc;overflow: scroll;margin:0 0 50px 0;}
         .width200 th,.rwd_auto th {background:#ccc;padding:5px;text-align:center;}
         .width200 td,.rwd_auto td {border-bottom:1px solid #ccc;padding:5px;text-align:center}
         .width200 tr:last-child td, .rwd_auto tr:last-child td{border:0}
@@ -156,16 +156,15 @@
 
         {{ Form::hidden('parametros',null,['id' => 'parametros']) }}
 
-        <div id="div_data" class="form-group col-md-12">
+        <div id="div_data" class="form-group col-md-12 hidden">
             {{ Form::button('Primera',['id' => 'first','class' => 'btn btn-success','data-url'=>'']) }}
             {{ Form::button('Anterior',['id' => 'prev','class' => 'btn btn-success','data-url'=>'']) }}
             {{ Form::button('Última',['id' => 'last','class' => 'btn btn-success pull-right','data-url'=>'']) }}
             {{ Form::button('Siguiente',['id' => 'next','class' => 'btn btn-success pull-right','data-url'=>'']) }}
-            <table class="rwd_auto fontsize" style="overflow-x: auto;width: 700px">
-                <tbody id="table">
+            <table class="rwd_auto fontsize form-group col-md-12" style="overflow-x: auto">
+                <tbody id="table" style="position:absolute;overflow-x: scroll" class="form-group col-md-12">
                 </tbody>
             </table>
-            <label id="pagina_actual" class="pull-right" >Pagina actual: </label>
         </div>
 
         <h2 id="sin_datos" class="hidden text-center">No se encontraron resultados</h2>
