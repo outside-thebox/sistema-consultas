@@ -4,6 +4,57 @@
 
     @include("busquedas.functions_scripts")
 
+    <style>
+        h2 {font-size:36px;margin:0 0 10px 0}
+        p {margin:0 0 10px 0}
+
+        table.width200,table.rwd_auto {border:1px solid #ccc;width:100%;margin:0 0 50px 0;}
+        .width200 th,.rwd_auto th {background:#ccc;padding:5px;text-align:center;}
+        .width200 td,.rwd_auto td {border-bottom:1px solid #ccc;padding:5px;text-align:center}
+        .width200 tr:last-child td, .rwd_auto tr:last-child td{border:0}
+
+        .rwd {width:100%;overflow:auto;}
+        .rwd table.rwd_auto {width:auto;min-width:100%}
+        .rwd_auto th,.rwd_auto td {white-space: nowrap;}
+
+        @media only screen and (max-width: 760px), (min-width: 768px) and (max-width: 1024px)
+        {
+
+            table.width200, .width200 thead, .width200 tbody, .width200 th, .width200 td, .width200 tr { display: block; }
+
+            .width200 thead tr { position: absolute;top: -9999px;left: -9999px; }
+
+            .width200 tr { border: 1px solid #ccc; }
+
+            .width200 td { border: none;border-bottom: 1px solid #ccc; position: relative;padding-left: 50%;text-align:left }
+
+            .width200 td:before {  position: absolute; top: 6px; left: 6px; width: 45%; padding-right: 10px; white-space: nowrap;}
+
+            .width200 td:nth-of-type(1):before { content: "Nombre"; }
+            .width200 td:nth-of-type(2):before { content: "Apellidos"; }
+            .width200 td:nth-of-type(3):before { content: "Cargo"; }
+            .width200 td:nth-of-type(4):before { content: "Twitter"; }
+            .width200 td:nth-of-type(5):before { content: "ID"; }
+
+            .descarto {display:none;}
+            .fontsize {font-size:10px}
+        }
+
+        /* Smartphones (portrait and landscape) ----------- */
+        @media only screen and (min-width : 320px) and (max-width : 480px)
+        {
+            body { width: 320px; }
+            .descarto {display:none;}
+        }
+
+        /* iPads (portrait and landscape) ----------- */
+        @media only screen and (min-width: 768px) and (max-width: 1024px)
+        {
+            body { width: 495px; }
+            .descarto {display:none;}
+            .fontsize {font-size:10px}
+        }
+    </style>
 
     <script>
         $().ready(function(){
@@ -31,29 +82,24 @@
                     limpiarCampos();
                 }
                 else
-                    alert("Debe completar el campo 'donde' y tambien el texto");
+                    darMensajeError("Debe completar el campo 'donde' y tambien el texto");
 
             });
 
             $("#next, #prev, #first, #last").on('click', function(e){
                 e.preventDefault();
                 var url = $(this).data('url');
-//            console.log(url);
-                buscar(false, url);
+                var parametros = darParametros();
+                buscar(url,parametros);
             });
 
             $('#btnBuscar').on('click', function(e) {
                 e.preventDefault();
 
-                var relaciones = "&"; // initialize empty array
-                $(".columnas_a_traer:checked").each(function(){
-                    relaciones += "relaciones[]="+$(this).val();
-                });
-
-
 
                 var url = "";
-                var parametros = $("#parametros").val() + relaciones;
+                var parametros = darParametros();
+
                 if($("select[name='busco']").val() == "hechos")
                     url = "{{route('api.v1.hecho.index')}}" + "?" + "page=1";
                 else if($("select[name='busco']").val() == "personas")
@@ -61,6 +107,8 @@
 
                 buscar(url,parametros);
             });
+
+
 
 
         });
@@ -108,33 +156,19 @@
 
         {{ Form::hidden('parametros',null,['id' => 'parametros']) }}
 
-        <!--<div id="div_data" class="hidden">
+        <div id="div_data" class="form-group col-md-12">
             {{ Form::button('Primera',['id' => 'first','class' => 'btn btn-success','data-url'=>'']) }}
             {{ Form::button('Anterior',['id' => 'prev','class' => 'btn btn-success','data-url'=>'']) }}
             {{ Form::button('Última',['id' => 'last','class' => 'btn btn-success pull-right','data-url'=>'']) }}
             {{ Form::button('Siguiente',['id' => 'next','class' => 'btn btn-success pull-right','data-url'=>'']) }}
-            <table class="table responsive table-bordered table-hover table-striped" >
-                <thead>
-                <tr>
-                    <th width="10%">CUIT</th>
-                    <th width="11%">Tipo de entidad</th>
-                    <th width="19%">Provincia</th>
-                    <th width="17%">Nombre</th>
-                    <th width="4%">Estado</th>
-                    <th width="10%">Domicilio</th>
-                    <th width="5%">CP</th>
-                    <th width="8%">Telefono</th>
-                    <th width="7%">Organismo</th>
-                    <th width="5%">Alerta</th>
-                    <th width="4%">Acciones</th>
-                </tr>
-                </thead>
+            <table class="rwd_auto fontsize" style="overflow-x: auto;width: 700px">
                 <tbody id="table">
                 </tbody>
             </table>
             <label id="pagina_actual" class="pull-right" >Pagina actual: </label>
         </div>
-        <h2 id="sin_datos" class="hidden text-center">No se encontraron resultados</h2>-->
+
+        <h2 id="sin_datos" class="hidden text-center">No se encontraron resultados</h2>
 
 
     </div>

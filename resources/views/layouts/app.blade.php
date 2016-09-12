@@ -41,6 +41,12 @@
             },30000);
         }
 
+        function darMensajeError(mensaje)
+        {
+            $("#contenido-modal").html(mensaje);
+            $("#confirmacion").modal(function(){show:true});
+        }
+
         function darParam(param)
         {
             if(param == "")
@@ -59,6 +65,11 @@
                 assync: false,
                 success: function(data){
                     mostrarDatos(data);
+                    HoldOn.close();
+                },
+                error:function(result)
+                {
+                    darMensajeError("Hubo un error en el servidor, por favor contacte al administrador");
                     HoldOn.close();
                 }
             });
@@ -116,6 +127,8 @@
     </nav>
 
     @yield('content')
+
+    @include('components.modal')
 
     <!-- JavaScripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js" integrity="sha384-I6F5OKECLVtK/BL+8iSLDEHowSAfUo76ZL9+kGAgTRdiByINKJaqTPH/QVNS1VDb" crossorigin="anonymous"></script>
