@@ -1,12 +1,106 @@
 <script>
 
+
+
+    function agregarCriterio()
+    {
+        if($("input[name='parametros']").val() != "")
+            var lista = jQuery.parseJSON($("input[name='parametros']").val());
+        else
+            var lista = [];
+
+//        console.log(lista.length);
+        var donde = $("select[name='donde']").val();
+        var es = $("select[name='es']").val();
+        var texto_a_buscar = $("input:text[name='texto_a_buscar']").val();
+
+        if(donde != "" && texto_a_buscar != "")
+        {
+            var criterio = donde + "=" + texto_a_buscar;
+
+            var nuevo = {id:lista.length+1,'criterio':criterio,'donde':donde,'es':es,'texto':texto_a_buscar,'deleted_at':null};
+
+            lista.push(nuevo);
+            $("input[name='parametros']").val(JSON.stringify(lista));
+            darListaParametros(lista);
+            limpiarCampos();
+
+
+        }
+        else
+            darMensajeError("Debe completar el campo 'donde' y tambien el texto");
+    }
+
+    function darListaParametros(lista)
+    {
+        lista = lista || [];
+        if(lista.length == 0)
+            $("#criterios_utilizados").html("");
+        else
+        {
+            var salida = "";
+            $.each(lista,function(index, value){
+                if(value.deleted_at == null)
+                {
+                    var eliminarCriterio = 'eliminarCriterio("' + value.id+ '")';
+                    salida = salida + '<span  class="label label-info" style="margin-left: 5px; margin-top: 3px; display: inline-block; font-size: 18px">'+ value.criterio +'<i class="glyphicon glyphicon-remove styleButtonImage" onclick='+ eliminarCriterio +' style="margin-left: 3px"></i></span>';
+                }
+            });
+            $("#criterios_utilizados").html(salida);
+        }
+
+    }
+
+    function eliminarCriterio(id_criterio)
+    {
+        var lista = jQuery.parseJSON($("input[name='parametros']").val());
+        var nueva_lista = [];
+        $.each(lista,function(index, value){
+
+            if (value.id == id_criterio)
+            {
+                var f = new Date();
+                value.deleted_at = f.getDate() + "/" + (f.getMonth() +1) + "/" + f.getFullYear()
+            }
+
+            nueva_lista.push(value);
+
+
+        });
+        $("input[name='parametros']").val(JSON.stringify(nueva_lista));
+        darListaParametros(nueva_lista);
+    }
+
+
+
+
+    /* ----------------------------------------------------------------------------------------------------*/
+
+
     function darParametros()
     {
         var relaciones = "&"; // initialize empty array
         $(".columnas_a_traer:checked").each(function(){
             relaciones += "relaciones[]="+$(this).val();
         });
-        var parametros = $("#parametros").val() + relaciones;
+
+
+        lista_parametros = jQuery.parseJSON($("#parametros").val());
+
+        var parametros = "";
+        $.each(lista_parametros,function(index, value){
+
+            if(value.deleted_at == null)
+            {
+                if(parametros == "")
+                    parametros = value.es+"["+value.donde+"]="+value.texto;
+                else
+                    parametros = parametros + "&" + value.es+"["+value.donde+"]="+value.texto;
+
+            }
+        });
+
+        parametros = parametros + relaciones;
 
         return parametros;
 
@@ -101,7 +195,7 @@
             }
             var lastUrl = "{{route('api.v1.hecho.index')}}" + "?page="+data_pagina.last_page;
 
-            console.log(firstUrl);
+//            console.log(firstUrl);
             $("#first").data('url',firstUrl);
             $("#next").data('url',nextUrl);
             $("#pagina_actual").text('Página '+ data_pagina.current_page + ' de '+ data_pagina.last_page + '. Cantidad de registros: ' + data_pagina.total);
