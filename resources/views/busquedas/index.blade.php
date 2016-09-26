@@ -10,6 +10,9 @@
     <script>
         $().ready(function(){
 
+            contarParametros();
+
+
             $("select[name='busco']").change(function()
             {
                 if($("select[name='busco']").val() == "hechos")

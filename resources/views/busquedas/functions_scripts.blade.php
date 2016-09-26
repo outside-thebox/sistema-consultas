@@ -1,5 +1,31 @@
 <script>
 
+    function contarParametros()
+    {
+        if($("input[name='parametros']").val() != "")
+            var lista = jQuery.parseJSON($("input[name='parametros']").val());
+        else
+        {
+            $("#btnBuscar").addClass("hidden");
+            var lista = [];
+        }
+
+        if(lista.length > 0)
+        {
+            var val = "";
+                $.each(lista,function(index, value){
+                if(value.deleted_at == null)
+                {
+                    return val = true;
+                }
+            });
+        }
+        if(val)
+            $("#btnBuscar").removeClass("hidden");
+        else
+            $("#btnBuscar").addClass("hidden");
+
+    }
 
 
     function agregarCriterio()
@@ -14,9 +40,15 @@
         var es = $("select[name='es']").val();
         var texto_a_buscar = $("input:text[name='texto_a_buscar']").val();
 
+
         if(donde != "" && texto_a_buscar != "")
         {
-            var criterio = donde + "=" + texto_a_buscar;
+
+            var lugar_hecho = $("select[name='donde'] option:selected").text();
+            if(es == "equals")
+                var criterio = lugar_hecho + " = " + texto_a_buscar;
+            else
+                var criterio = lugar_hecho + " contiene " + texto_a_buscar;
 
             var nuevo = {id:lista.length+1,'criterio':criterio,'donde':donde,'es':es,'texto':texto_a_buscar,'deleted_at':null};
 
@@ -48,6 +80,8 @@
             });
             $("#criterios_utilizados").html(salida);
         }
+
+        contarParametros();
 
     }
 
