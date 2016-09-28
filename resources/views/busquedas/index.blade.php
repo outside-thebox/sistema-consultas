@@ -24,21 +24,7 @@
             });
 
             $("#btnAgregarCriterio").click(function(){
-                /*var donde = $("select[name='donde']").val();
-                var es = $("select[name='es']").val();
-                var texto_a_buscar = $("input:text[name='texto_a_buscar']").val();
-
-                if(donde != "" && texto_a_buscar != "")
-                {
-                    $("#parametros").val($("#parametros").val()+darParam($("#parametros").val())+es+"["+donde+"]="+texto_a_buscar);
-
-                    $("#criterios_utilizados").append("<li>" + donde + " = " + texto_a_buscar + "</li>");
-                    limpiarCampos();
-                }
-                else
-                    darMensajeError("Debe completar el campo 'donde' y tambien el texto");*/
                 agregarCriterio();
-
             });
 
             $("#next, #prev, #first, #last").on('click', function(e){
@@ -50,7 +36,6 @@
 
             $('#btnBuscar').on('click', function(e) {
                 e.preventDefault();
-
 
                 var url = "";
                 var parametros = darParametros();

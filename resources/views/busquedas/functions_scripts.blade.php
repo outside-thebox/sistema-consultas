@@ -119,7 +119,7 @@
         });
 
 
-        lista_parametros = jQuery.parseJSON($("#parametros").val());
+        var lista_parametros = jQuery.parseJSON($("#parametros").val());
 
         var parametros = "";
         $.each(lista_parametros,function(index, value){
@@ -198,7 +198,6 @@
 
     function mostrarDatos(data)
     {
-        console.log(data);
         $("#table").empty();
         var data_pagina = data.data;
         var data = data.data.data;
@@ -241,42 +240,66 @@
 
             if(len > 0) {
 
-                for (var i = 0; i < len; i++) {
 
-                    txt += "<tr>";
-                    txt += "<td>"+data[i].HE_ADEPSUM+"</td>";
-                    txt += "<td>"+data[i].HE_DEPEN+"</td>";
-                    txt += "<td>"+data[i].HE_NUMSUM+ "</td>";
-                    txt += "<td>"+data[i].HE_FECHINI+"</td>";
-                    txt += "<td>"+data[i].HE_FECHFIN+"</td>";
-                    txt += "<td>"+data[i].HE_DILIJUD+"</td>";
-                    txt += "<td>"+data[i].HE_ACTANT+"</td>";
-                    txt += "<td>"+data[i].HE_ACTORIG+"</td>";
-                    txt += "<td>"+data[i].HE_ACTGIR+"</td>";
-                    txt += "<td>"+data[i].HE_MODALI+"</td>";
-                    txt += "<td>"+data[i].HE_PROV+"</td>";
-                    txt += "<td>"+data[i].HE_LOCALI+"</td>";
-                    txt += "<td>"+data[i].HE_LUGHECH+"</td>";
-                    txt += "<td>"+data[i].HE_MEDIOEM+"</td>";
-                    txt += "<td>"+data[i].HE_GIS+"</td>";
-                    txt += "<td>"+data[i].HE_DICE1+"</td>";
-                    txt += "<td>"+data[i].HE_DICE2+"</td>";
-                    txt += "<td>"+data[i].HE_DICE3+"</td>";
-                    txt += "<td>"+data[i].HE_DICE4+"</td>";
-                    txt += "<td>"+data[i].HE_TIPOHEC+"</td>";
-                    txt += "<td>"+data[i].HE_COLISIO+"</td>";
-                    txt += "<td>"+data[i].HE_UBICACI+"</td>";
-                    txt += "<td>"+data[i].HE_LUGVIA+"</td>";
-                    txt += "<td>"+data[i].HE_ESTVIA+"</td>";
-                    txt += "<td>"+data[i].HE_ESTCLIM+"</td>";
-                    txt += "<td>"+data[i].HE_CALLE+"</td>";
-                    txt += "</tr>";
+                var firstItem = data[0];
 
+                txt += "<tr>";
+                for(key in firstItem) {
+                    txt += "<th>"+key+"</th>";
                 }
+                txt += "</tr>";
+
+                $.each(data, function(key, value){
+                    txt += "<tr>";
+                    $.each(value, function(key, value){
+                        console.log(key, value);
+                        txt += "<td>"+value+"</td>";
+                    });
+                    txt += "</tr>";
+                });
+
+//                for (var i = 0; i < len; i++) {
+//
+//                    txt += "<tr>";
+//                    txt += "<td>"+data[i].HE_ADEPSUM+"</td>";
+//                    txt += "<td>"+data[i].HE_DEPEN+"</td>";
+//                    txt += "<td>"+data[i].HE_NUMSUM+ "</td>";
+//                    txt += "<td>"+data[i].HE_FECHINI+"</td>";
+//                    txt += "<td>"+data[i].HE_FECHFIN+"</td>";
+//                    txt += "<td>"+data[i].HE_DILIJUD+"</td>";
+//                    txt += "<td>"+data[i].HE_ACTANT+"</td>";
+//                    txt += "<td>"+data[i].HE_ACTORIG+"</td>";
+//                    txt += "<td>"+data[i].HE_ACTGIR+"</td>";
+//                    txt += "<td>"+data[i].HE_MODALI+"</td>";
+//                    txt += "<td>"+data[i].HE_PROV+"</td>";
+//                    txt += "<td>"+data[i].HE_LOCALI+"</td>";
+//                    txt += "<td>"+data[i].HE_LUGHECH+"</td>";
+//                    txt += "<td>"+data[i].HE_MEDIOEM+"</td>";
+//                    txt += "<td>"+data[i].HE_GIS+"</td>";
+//                    txt += "<td>"+data[i].HE_DICE1+"</td>";
+//                    txt += "<td>"+data[i].HE_DICE2+"</td>";
+//                    txt += "<td>"+data[i].HE_DICE3+"</td>";
+//                    txt += "<td>"+data[i].HE_DICE4+"</td>";
+//                    txt += "<td>"+data[i].HE_TIPOHEC+"</td>";
+//                    txt += "<td>"+data[i].HE_COLISIO+"</td>";
+//                    txt += "<td>"+data[i].HE_UBICACI+"</td>";
+//                    txt += "<td>"+data[i].HE_LUGVIA+"</td>";
+//                    txt += "<td>"+data[i].HE_ESTVIA+"</td>";
+//                    txt += "<td>"+data[i].HE_ESTCLIM+"</td>";
+//                    txt += "<td>"+data[i].HE_CALLE+"</td>";
+//                    txt += "</tr>";
+//
+//                }
+
+
 
                 if(txt != ""){
                     $("#table").append(txt).removeClass("hidden");
                 }
+
+
+
+
             }
 
 
